@@ -6,12 +6,13 @@ public class RegistroTemperaturas {
 
         Scanner sc = new Scanner(System.in);
         // Variables
+        int data = 0;
         int days = 0;
         int errors = 0;
         double tempMax, tempMin;
         double sumMax = 0;
         double sumMin = 0;
-        double promMax, promMin, percErrors;
+        double promMax = 0, promMin = 0, percErrors = 0;
 
         // Lectura de temperaturas
         System.out.print("Ingrese temperatura maxima: ");
@@ -21,15 +22,15 @@ public class RegistroTemperaturas {
         tempMin = sc.nextDouble();
 
         while (tempMax != 0 || tempMin != 0) {
-
-            days++;
-
+            data++;
             if (tempMax == 9 || tempMin == 9) {
                 errors++;
             }
-
-            sumMax += tempMax;
-            sumMin += tempMin;
+            else{
+                days++;
+                sumMax += tempMax;
+                sumMin += tempMin;
+            }
 
             // Lectura de temperaturas
             System.out.print("Ingrese temperatura maxima: ");
@@ -38,24 +39,24 @@ public class RegistroTemperaturas {
             System.out.print("Ingrese temperatura minima: ");
             tempMin = sc.nextDouble();
         }
-
-        if (days > 0) {
-            promMax = sumMax / days;
-            promMin = sumMin / days;
-            percErrors = (errors * 100.0) / days;
-        } else {
-            promMax = 0;
-            promMin = 0;
-            percErrors = 0;
+        
+        if(data > 0){
+            percErrors = (errors * 100.0) / data;
+            if (days > 0) {
+                promMax = sumMax / days;
+                promMin = sumMin / days;
+            }
+            // Resultados
+            System.out.println("Resultados:");
+            System.out.println("Total de dias registrados: " + days);
+            System.out.println("Promedio temperatura maxima: " + promMax);
+            System.out.println("Promedio temperatura minima: " + promMin);
+            System.out.println("Errores detectados: " + errors);
+            System.out.println("Porcentaje de errores: " + percErrors + "%");
         }
-
-        // Resultados
-        System.out.println("Resultados:");
-        System.out.println("Total de dias registrados: " + days);
-        System.out.println("Promedio temperatura maxima: " + promMax);
-        System.out.println("Promedio temperatura minima: " + promMin);
-        System.out.println("Errores detectados: " + errors);
-        System.out.println("Porcentaje de errores: " + percErrors + "%");
+        else{
+            System.out.println("No se ingresaron datos");
+        }
 
         sc.close();
     }
